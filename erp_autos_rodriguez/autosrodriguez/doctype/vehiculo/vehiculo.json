@@ -1,0 +1,169 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "field:vin",
+ "creation": "2026-08-22 09:27:34.373480",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "vin",
+  "marca",
+  "modelo",
+  "cb_datos",
+  "anio",
+  "casa_subasta",
+  "estado",
+  "sb_seguimiento",
+  "fecha_compra",
+  "eta_llegada",
+  "numero_contenedor",
+  "cb_links",
+  "purchase_order",
+  "project",
+  "serial_no",
+  "quotation",
+  "sales_invoice",
+  "titulo"
+ ],
+ "fields": [
+  {
+   "fieldname": "vin",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "VIN",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "marca",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Marca",
+   "reqd": 1
+  },
+  {
+   "fieldname": "modelo",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Modelo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_datos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "anio",
+   "fieldtype": "Int",
+   "label": "A\u00f1o"
+  },
+  {
+   "fieldname": "casa_subasta",
+   "fieldtype": "Data",
+   "label": "Casa de Subasta"
+  },
+  {
+   "fieldname": "estado",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Estado",
+   "options": "Solicitado\nComprado\nEn subasta\nCancelado\nEn transito\nEn aduana\nEn bodega SPS\nEn taller\nEn reparacion\nEsperando repuestos\nListo para venta\nEn negociacion\nEn tramite de credito\nVendido",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sb_seguimiento",
+   "fieldtype": "Section Break",
+   "label": "Seguimiento (opcional)"
+  },
+  {
+   "fieldname": "fecha_compra",
+   "fieldtype": "Date",
+   "label": "Fecha de Compra"
+  },
+  {
+   "fieldname": "eta_llegada",
+   "fieldtype": "Date",
+   "label": "ETA Llegada"
+  },
+  {
+   "fieldname": "numero_contenedor",
+   "fieldtype": "Data",
+   "label": "N\u00b0 Contenedor"
+  },
+  {
+   "fieldname": "cb_links",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Orden de Compra",
+   "options": "Purchase Order"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Proyecto",
+   "options": "Project"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Link",
+   "label": "Serial No",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "label": "Cotizaci\u00f3n",
+   "options": "Quotation"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Factura de Venta",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "titulo",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "T\u00edtulo",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-31 07:30:58.598427",
+ "modified_by": "Administrator",
+ "module": "AutosRodriguez",
+ "name": "Vehiculo",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "titulo"
+}

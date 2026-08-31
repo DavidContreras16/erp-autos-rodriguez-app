@@ -256,3 +256,13 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+fixtures = [
+    {"dt": "Workflow", "filters": [["name", "=", "Flujo Vehiculo"]]},
+    {"dt": "Workflow State"},
+    {"dt": "Workflow Action Master"},
+    {"dt": "Server Script", "filters": [["name", "=", "Vehiculo - Generar Titulo"]]},
+    {"dt": "Number Card", "filters": [["name", "=", "Total Vehiculos"]]},
+    {"dt": "Dashboard Chart", "filters": [["name", "=", "Vehiculos por Estado"]]},
+    {"dt": "Kanban Board", "filters": [["name", "=", "Vehiculos - Flujo"]]},
+]

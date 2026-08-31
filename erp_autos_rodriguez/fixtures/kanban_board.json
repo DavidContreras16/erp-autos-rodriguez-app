@@ -1,0 +1,101 @@
+[
+ {
+  "columns": [
+   {
+    "column_name": "Solicitado",
+    "indicator": "Gray",
+    "order": "[]",
+    "status": "Active"
+   },
+   {
+    "column_name": "Comprado",
+    "indicator": "Blue",
+    "order": "[\"1N4AL3AP8JC123465\"]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En subasta",
+    "indicator": "Orange",
+    "order": "[\n \"3FADP4EJ5DM123458\",\n \"2T1BURHE0JC123457\",\n \"1HGCM82633A123456\"\n]",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelado",
+    "indicator": "Red",
+    "order": "[]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En transito",
+    "indicator": "Blue",
+    "order": "[\"1FTFW1ET5DFC12345\"]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En aduana",
+    "indicator": "Orange",
+    "order": "[]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En bodega SPS",
+    "indicator": "Blue",
+    "order": "[\n \"5NPE24AF4FH123459\"\n]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En taller",
+    "indicator": "Orange",
+    "order": "[\"3VWD07AJ5EM123460\"]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En reparacion",
+    "indicator": "Orange",
+    "order": "[\"1G1ZE5ST8HF123461\"]",
+    "status": "Active"
+   },
+   {
+    "column_name": "Esperando repuestos",
+    "indicator": "Red",
+    "order": "[\"JTDKN3DU0E1123462\"]",
+    "status": "Active"
+   },
+   {
+    "column_name": "Listo para venta",
+    "indicator": "Green",
+    "order": "[\"5YFBURHE1FP123463\"]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En negociacion",
+    "indicator": "Blue",
+    "order": "[]",
+    "status": "Active"
+   },
+   {
+    "column_name": "En tramite de credito",
+    "indicator": "Orange",
+    "order": "[]",
+    "status": "Active"
+   },
+   {
+    "column_name": "Vendido",
+    "indicator": "Green",
+    "order": "[\"1N4AL3AP8JC123464\"]",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "estado",
+  "fields": null,
+  "filters": null,
+  "kanban_board_name": "Vehiculos - Flujo",
+  "modified": "2026-08-30 23:18:17.237492",
+  "name": "Vehiculos - Flujo",
+  "private": 0,
+  "reference_doctype": "Vehiculo",
+  "show_labels": 0
+ }
+]
