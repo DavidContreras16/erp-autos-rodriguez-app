@@ -259,6 +259,7 @@ app_license = "mit"
 
 fixtures = [
     {"dt": "Workflow", "filters": [["name", "=", "Flujo Vehiculo"]]},
+    {"dt": "Workflow", "filters": [["name", "=", "Flujo Vehiculo"]]},
     {"dt": "Workflow State"},
     {"dt": "Workflow Action Master"},
     {"dt": "Server Script", "filters": [["name", "=", "Vehiculo - Generar Titulo"]]},
