@@ -30,54 +30,6 @@
    "label": "Veh\u00edculos",
    "link_to": "Vehiculo",
    "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "\u00d3rdenes de Compra",
-   "link_to": "Purchase Order",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Entradas de Inventario",
-   "link_to": "Stock Entry",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Costos de Importaci\u00f3n",
-   "link_to": "Landed Cost Voucher",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Inspecci\u00f3n de Calidad",
-   "link_to": "Quality Inspection",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Cotizaciones",
-   "link_to": "Quotation",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Facturas de Venta",
-   "link_to": "Sales Invoice",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Notas de Entrega",
-   "link_to": "Delivery Note",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "label": "Proyectos",
-   "link_to": "Project",
-   "type": "DocType"
   }
  ],
  "title": "Autos Rodriguez",
