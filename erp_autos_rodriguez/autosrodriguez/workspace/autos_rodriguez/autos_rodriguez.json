@@ -14,7 +14,7 @@
  "label": "Autos Rodriguez",
  "link_type": "DocType",
  "links": [],
- "modified": "2026-09-03 13:55:54.401878",
+ "modified": "2026-09-04 17:05:07.351260",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Autos Rodriguez",
@@ -27,8 +27,44 @@
  "shortcuts": [
   {
    "doc_view": "",
-   "label": "Veh\u00edculos",
+   "label": "Vehiculos",
    "link_to": "Vehiculo",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Ordenes de Compra",
+   "link_to": "Orden de Compra",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Pagos de Compra",
+   "link_to": "Pago Compra",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Proveedores",
+   "link_to": "Proveedor",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Clientes",
+   "link_to": "Cliente",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Almacenes",
+   "link_to": "Almacen",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Repuestos",
+   "link_to": "Repuesto",
    "type": "DocType"
   }
  ],
