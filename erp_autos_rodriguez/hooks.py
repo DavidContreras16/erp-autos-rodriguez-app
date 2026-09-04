@@ -88,6 +88,10 @@ app_license = "mit"
 # before_install = "erp_autos_rodriguez.install.before_install"
 # after_install = "erp_autos_rodriguez.install.after_install"
 
+on_session_creation = [
+    "erp_autos_rodriguez.user_sidebar_cache.populate_can_read_cache"
+]
+
 # Uninstallation
 # ------------
 
