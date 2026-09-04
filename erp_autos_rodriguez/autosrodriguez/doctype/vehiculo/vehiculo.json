@@ -16,12 +16,12 @@
   "anio",
   "casa_subasta",
   "estado",
+  "orden_compra",
   "sb_seguimiento",
   "fecha_compra",
   "eta_llegada",
   "numero_contenedor",
   "cb_links",
-  "project",
   "titulo",
   "imagen"
  ],
@@ -71,6 +71,12 @@
    "read_only": 1
   },
   {
+   "fieldname": "orden_compra",
+   "fieldtype": "Link",
+   "label": "Orden de Compra",
+   "options": "Orden de Compra"
+  },
+  {
    "collapsible": 1,
    "fieldname": "sb_seguimiento",
    "fieldtype": "Section Break",
@@ -96,12 +102,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "project",
-   "fieldtype": "Link",
-   "label": "Proyecto",
-   "options": "Project"
-  },
-  {
    "fieldname": "titulo",
    "fieldtype": "Data",
    "hidden": 1,
@@ -119,7 +119,7 @@
  "image_field": "imagen",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-03 15:13:51.298745",
+ "modified": "2026-09-04 16:06:24.951054",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Vehiculo",

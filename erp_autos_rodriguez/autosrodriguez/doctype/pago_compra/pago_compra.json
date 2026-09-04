@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "PC-.#####",
+ "creation": "2026-09-04 12:19:41.292159",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "orden_compra",
+  "fecha_pago",
+  "monto",
+  "metodo_pago",
+  "referencia",
+  "comprobante"
+ ],
+ "fields": [
+  {
+   "fieldname": "orden_compra",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Orden de Compra",
+   "options": "Orden de Compra",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fecha_pago",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha de Pago",
+   "reqd": 1
+  },
+  {
+   "fieldname": "monto",
+   "fieldtype": "Currency",
+   "label": "Monto",
+   "reqd": 1
+  },
+  {
+   "fieldname": "metodo_pago",
+   "fieldtype": "Select",
+   "label": "Metodo de Pago",
+   "options": "Transferencia\nTarjeta\nCheque"
+  },
+  {
+   "fieldname": "referencia",
+   "fieldtype": "Data",
+   "label": "Referencia"
+  },
+  {
+   "fieldname": "comprobante",
+   "fieldtype": "Attach",
+   "label": "Comprobante"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-04 12:19:41.292159",
+ "modified_by": "Administrator",
+ "module": "AutosRodriguez",
+ "name": "Pago Compra",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Compras",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
