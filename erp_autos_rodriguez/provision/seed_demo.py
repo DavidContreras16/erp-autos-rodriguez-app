@@ -117,28 +117,48 @@ def _fix_demo_typos():
     return fixed
 
 
-def _ensure_oc(vin, fecha, notas):
+def _ensure_oc(vin, data):
     """Crea la Orden de Compra 'Ganada' del vehiculo si no existe y enlaza."""
+    copart = frappe.db.get_value("Proveedor", {"nombre": "Copart Central America"}, "name")
     oc_name = frappe.db.sql(
         "SELECT name FROM `tabOrden de Compra` WHERE vehiculo=%s LIMIT 1", vin
     )
     if oc_name:
-        return frappe.get_doc("Orden de Compra", oc_name[0][0])
-    copart = frappe.db.get_value("Proveedor", {"nombre": "Copart Central America"}, "name")
+        oc = frappe.get_doc("Orden de Compra", oc_name[0][0])
+        if oc.monto_ofertado != data["monto"]:
+            oc.db_set("monto_ofertado", data["monto"], update_modified=False)
+        return oc
     oc = frappe.new_doc("Orden de Compra")
     oc.update({
         "vehiculo": vin,
         "proveedor": copart,
-        "fecha": fecha,
-        "monto_ofertado": 0,
+        "fecha": data["fecha"],
+        "monto_ofertado": data["monto"],
         "moneda": "USD",
         "estado_subasta": "Ganada",
-        "notas": notas,
+        "notas": data["notas"],
     })
     oc.insert(ignore_permissions=True)
     frappe.db.set_value("Vehiculo", vin, "orden_compra", oc.name, update_modified=False)
     frappe.db.set_value("Vehiculo", vin, "fecha_compra", oc.fecha, update_modified=False)
     return oc
+
+
+def _ensure_pago(oc, data):
+    """Crea el Pago Compra de la OC (un pago por compra) si no existe."""
+    pago_name = frappe.db.exists("Pago Compra", {"orden_compra": oc.name, "monto": data["monto"]})
+    if pago_name:
+        return frappe.get_doc("Pago Compra", pago_name)
+    pc = frappe.new_doc("Pago Compra")
+    pc.update({
+        "orden_compra": oc.name,
+        "fecha_pago": data["pago_fecha"],
+        "monto": data["monto"],
+        "metodo_pago": data["pago_metodo"],
+        "referencia": data["pago_ref"],
+    })
+    pc.insert(ignore_permissions=True)
+    return pc
 
 
 def seed():
@@ -183,12 +203,23 @@ def seed():
         ensure_prompt("Cliente", c["nombre_completo"], c)
 
     vehiculos = [
-        {"vin": "2C3CDXBG9MH123456", "marca": "Toyota", "modelo": "Corolla", "anio": 2021, "titulo": "Toyota Corolla 2021", "estado": "En subasta", "casa_subasta": "Copart Central America"},
-        {"vin": "1HGCV1F34LA012345", "marca": "Honda", "modelo": "Civic", "anio": 2020, "titulo": "Honda Civic 2020", "estado": "En aduana", "eta_llegada": "2026-09-12"},
-        {"vin": "WDDPK4HA4KF765432", "marca": "Mercedes-Benz", "modelo": "C300", "anio": 2019, "titulo": "Mercedes-Benz C300 2019", "estado": "En transito", "numero_contenedor": "MSKU 8812345"},
-        {"vin": "3VWD17AJ8KM654321", "marca": "Volkswagen", "modelo": "Jetta", "anio": 2022, "titulo": "Volkswagen Jetta 2022", "estado": "Listo para venta"},
-        {"vin": "5N1AT2MV2JC098765", "marca": "Nissan", "modelo": "Rogue", "anio": 2018, "titulo": "Nissan Rogue 2018", "estado": "En taller"},
-        {"vin": "4T1B11HK5KU987654", "marca": "Toyota", "modelo": "RAV4", "anio": 2019, "titulo": "Toyota RAV4 2019", "estado": "Solicitado"},
+        {"vin": "2C3CDXBG9MH123456", "marca": "Toyota", "modelo": "Corolla", "anio": 2021, "estado": "En subasta", "casa_subasta": "Copart Central America"},
+        {"vin": "1HGCV1F34LA012345", "marca": "Honda", "modelo": "Civic", "anio": 2020, "estado": "En aduana", "casa_subasta": "Copart Central America", "eta_llegada": "2026-09-12"},
+        {"vin": "WDDPK4HA4KF765432", "marca": "Mercedes-Benz", "modelo": "C300", "anio": 2019, "estado": "En transito", "casa_subasta": "Copart Central America", "numero_contenedor": "MSKU 8812345", "eta_llegada": "2026-09-25"},
+        {"vin": "1FTFW1ET5DFC12345", "marca": "Ford", "modelo": "F-150", "anio": 2021, "estado": "En transito", "casa_subasta": "Manheim Honduras", "numero_contenedor": "MSCU1234567", "eta_llegada": "2026-09-02"},
+        {"vin": "5NPE24AF4FH123459", "marca": "Hyundai", "modelo": "Sonata", "anio": 2019, "estado": "En bodega SPS", "casa_subasta": "Copart Central America", "numero_contenedor": "TCLU7654321"},
+        {"vin": "3VWD07AJ5EM123460", "marca": "Volkswagen", "modelo": "Jetta", "anio": 2020, "estado": "En taller", "casa_subasta": "Copart Central America"},
+        {"vin": "5N1AT2MV2JC098765", "marca": "Nissan", "modelo": "Rogue", "anio": 2018, "estado": "En reparacion", "casa_subasta": "Copart Central America"},
+        {"vin": "1G1ZE5ST8HF123461", "marca": "Chevrolet", "modelo": "Malibu", "anio": 2017, "estado": "En reparacion", "casa_subasta": "Copart Central America"},
+        {"vin": "JTDKN3DU0E1123462", "marca": "Toyota", "modelo": "Prius", "anio": 2018, "estado": "Esperando repuestos", "casa_subasta": "Manheim Honduras"},
+        {"vin": "3VWD17AJ8KM654321", "marca": "Volkswagen", "modelo": "Jetta", "anio": 2022, "estado": "Listo para venta", "casa_subasta": "Manheim Honduras"},
+        {"vin": "5YFBURHE1FP123463", "marca": "Toyota", "modelo": "Corolla", "anio": 2021, "estado": "En negociacion", "casa_subasta": "Copart Central America"},
+        {"vin": "1N4AL3AP8JC123464", "marca": "Nissan", "modelo": "Altima", "anio": 2019, "estado": "Vendido", "casa_subasta": "Copart Central America"},
+        {"vin": "1N4AL3AP8JC123465", "marca": "Nissan", "modelo": "Nissan 200", "anio": 2004, "estado": "Comprado", "casa_subasta": "Copart Central America"},
+        {"vin": "2T1BURHE0JC123457", "marca": "Honda", "modelo": "Civic", "anio": 2020, "estado": "Comprado", "casa_subasta": "Copart Central America"},
+        {"vin": "1HGCM82633A123456", "marca": "Toyota", "modelo": "Corolla", "anio": 2019, "estado": "En subasta", "casa_subasta": "Copart Central America"},
+        {"vin": "3FADP4EJ5DM123458", "marca": "Ford", "modelo": "Fusion", "anio": 2018, "estado": "En subasta", "casa_subasta": "Copart Central America"},
+        {"vin": "4T1B11HK5KU987654", "marca": "Toyota", "modelo": "RAV4", "anio": 2019, "estado": "Solicitado", "casa_subasta": "Copart Central America"},
     ]
     for v in vehiculos:
         vdata = dict(v)
@@ -197,32 +228,34 @@ def seed():
         if target and doc.estado != target:
             advance_vehicle(doc.name, target)
 
-    honda_vin = "1HGCV1F34LA012345"
-    copart = frappe.db.get_value("Proveedor", {"nombre": "Copart Central America"}, "name")
-
-    honda_oc = _ensure_oc(
-        honda_vin,
-        "2026-01-20",
-        "Oferta ganada en subasta por Honda Civic 2020.",
-    )
-    honda = frappe.get_doc("Vehiculo", honda_vin)
-    frappe.db.set_value("Vehiculo", honda_vin, "orden_compra", honda_oc.name, update_modified=False)
-    honda_oc.reload()
-    frappe.db.set_value("Vehiculo", honda_vin, "fecha_compra", honda_oc.fecha, update_modified=False)
-
-    if not frappe.db.exists("Pago Compra", {"orden_compra": honda_oc.name, "monto": 6500}):
-        pc = frappe.new_doc("Pago Compra")
-        pc.update({
-            "orden_compra": honda_oc.name,
-            "fecha_pago": "2026-01-22",
-            "monto": 6500,
-            "metodo_pago": "Transferencia",
-            "referencia": "SWIFT HSBC-88231",
-        })
-        pc.insert(ignore_permissions=True)
-
-    _ensure_oc("1N4AL3AP8JC123465", "2026-01-15", "Compra registrada de Nissan 200 (demo historica).")
-    _ensure_oc("2T1BURHE0JC123457", "2026-07-29", "Compra registrada de Honda Civic (demo historica).")
+    oc_pagos = {
+        "1HGCV1F34LA012345": {"fecha": "2026-01-20", "monto": 6500, "notas": "Oferta ganada en subasta por Honda Civic 2020.", "pago_fecha": "2026-01-22", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88231"},
+        "1N4AL3AP8JC123465": {"fecha": "2026-01-15", "monto": 4200, "notas": "Compra registrada de Nissan 200 (demo historica).", "pago_fecha": "2026-01-18", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88232"},
+        "2T1BURHE0JC123457": {"fecha": "2026-07-29", "monto": 5400, "notas": "Compra registrada de Honda Civic (demo historica).", "pago_fecha": "2026-08-01", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88233"},
+        "1FTFW1ET5DFC12345": {"fecha": "2026-07-14", "monto": 14800, "notas": "Subasta ganada Ford F-150 2021.", "pago_fecha": "2026-07-17", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88234"},
+        "WDDPK4HA4KF765432": {"fecha": "2026-03-20", "monto": 13200, "notas": "Subasta ganada Mercedes-Benz C300 2019.", "pago_fecha": "2026-03-23", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88235"},
+        "3VWD07AJ5EM123460": {"fecha": "2026-06-14", "monto": 4300, "notas": "Subasta ganada Volkswagen Jetta 2020.", "pago_fecha": "2026-06-17", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88236"},
+        "1G1ZE5ST8HF123461": {"fecha": "2026-06-09", "monto": 5200, "notas": "Subasta ganada Chevrolet Malibu 2017.", "pago_fecha": "2026-06-12", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88237"},
+        "5N1AT2MV2JC098765": {"fecha": "2026-05-30", "monto": 8600, "notas": "Subasta ganada Nissan Rogue 2018.", "pago_fecha": "2026-06-02", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88238"},
+        "5NPE24AF4FH123459": {"fecha": "2026-06-29", "monto": 4800, "notas": "Subasta ganada Hyundai Sonata 2019.", "pago_fecha": "2026-07-02", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88239"},
+        "JTDKN3DU0E1123462": {"fecha": "2026-06-04", "monto": 8900, "notas": "Subasta ganada Toyota Prius 2018.", "pago_fecha": "2026-06-07", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88240"},
+        "3VWD17AJ8KM654321": {"fecha": "2026-02-10", "monto": 5900, "notas": "Subasta ganada Volkswagen Jetta 2022.", "pago_fecha": "2026-02-13", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88241"},
+        "5YFBURHE1FP123463": {"fecha": "2026-05-25", "monto": 5500, "notas": "Subasta ganada Toyota Corolla 2021.", "pago_fecha": "2026-05-28", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88242"},
+        "1N4AL3AP8JC123464": {"fecha": "2026-04-25", "monto": 6200, "notas": "Subasta ganada Nissan Altima 2019.", "pago_fecha": "2026-04-28", "pago_metodo": "Transferencia", "pago_ref": "SWIFT HSBC-88243"},
+    }
+    ocs_created = 0
+    pagos_created = 0
+    for vin, od in oc_pagos.items():
+        existing_oc = frappe.db.sql(
+            "SELECT name FROM `tabOrden de Compra` WHERE vehiculo=%s LIMIT 1", vin
+        )
+        oc = _ensure_oc(vin, od)
+        if not existing_oc:
+            ocs_created += 1
+        if not frappe.db.exists("Pago Compra", {"orden_compra": oc.name, "monto": od["monto"]}):
+            pagos_created += 1
+            _ensure_pago(oc, od)
+    print("OCS_NUEVAS:", ocs_created, "| PAGOS_NUEVOS:", pagos_created)
 
     casa_fixed = _normalize_casa_subasta()
     typo_fixed = _fix_demo_typos()
