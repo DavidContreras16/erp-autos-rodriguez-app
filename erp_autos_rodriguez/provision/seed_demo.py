@@ -2,10 +2,13 @@ import frappe
 
 
 def ensure_prompt(dt, name, data):
-    if frappe.db.exists(dt, name):
-        return frappe.get_doc(dt, name)
+    """Crea el doctytpe con autoname Prompt o sincroniza los campos si ya existe."""
     data = dict(data)
     data["name"] = name
+    if frappe.db.exists(dt, name):
+        doc = frappe.get_doc(dt, name)
+        _sync_fields(doc, data)
+        return frappe.get_doc(dt, name)
     doc = frappe.new_doc(dt)
     for k, v in data.items():
         doc.set(k, v)
@@ -14,14 +17,26 @@ def ensure_prompt(dt, name, data):
 
 
 def ensure_key(dt, key_field, data):
+    """Crea doc por campo unico o sincroniza los campos si ya existe."""
     exists = frappe.db.exists(dt, {key_field: data[key_field]})
     if exists:
+        doc = frappe.get_doc(dt, exists)
+        _sync_fields(doc, data)
         return frappe.get_doc(dt, exists)
     doc = frappe.new_doc(dt)
     for k, v in data.items():
         doc.set(k, v)
     doc.insert(ignore_permissions=True)
     return doc
+
+
+def _sync_fields(doc, data):
+    """db_set de los campos que difieren (sin disparar validaciones/workflow)."""
+    for k, v in data.items():
+        if k in ("name",) or not hasattr(doc, k):
+            continue
+        if doc.get(k) != v:
+            doc.db_set(k, v, update_modified=False)
 
 
 def _workflow_graph():
@@ -55,12 +70,75 @@ def advance_vehicle(vin, target_state):
         for nxt in graph.get(node, []):
             queue.append(p + [nxt])
     if not path:
+        frappe.log_error(
+            f"Vehiculo {vin}: no hay ruta en el workflow de '{doc.estado}' a '{target_state}'",
+            "SeedDemo",
+        )
+        print(f"WARN advance_vehicle {vin} -> {target_state}: sin ruta")
         return doc
     for st in path[1:]:
         doc = frappe.get_doc("Vehiculo", vin)
         doc.estado = st
         doc.save(ignore_permissions=True)
     return frappe.get_doc("Vehiculo", vin)
+
+
+CASA_MAP = {
+    "Copart": "Copart Central America",
+    "Manheim": "Manheim Honduras",
+    "IAAI": "Copart Central America",
+    "Amazon Warehouse": "Copart Central America",
+}
+
+
+def _normalize_casa_subasta():
+    """Unifica casa_subasta (texto libre) con los proveedores sembrados."""
+    fixed = []
+    for name in frappe.get_all("Vehiculo", pluck="name"):
+        doc = frappe.get_doc("Vehiculo", name)
+        value = (doc.casa_subasta or "").strip()
+        new = CASA_MAP.get(value, value)
+        if not new:
+            new = "Copart Central America"
+        if new != value:
+            doc.db_set("casa_subasta", new, update_modified=False)
+            fixed.append(f"{name}: '{value}' -> '{new}'")
+    return fixed
+
+
+def _fix_demo_typos():
+    fixed = []
+    nissan = frappe.db.get_value("Vehiculo", {"vin": "1N4AL3AP8JC123465"})
+    if nissan:
+        doc = frappe.get_doc("Vehiculo", nissan)
+        if doc.modelo == "Nisan 200":
+            doc.db_set("modelo", "Nissan 200", update_modified=False)
+            fixed.append(f"{doc.name}: modelo 'Nisan 200' -> 'Nissan 200'")
+    return fixed
+
+
+def _ensure_oc(vin, fecha, notas):
+    """Crea la Orden de Compra 'Ganada' del vehiculo si no existe y enlaza."""
+    oc_name = frappe.db.sql(
+        "SELECT name FROM `tabOrden de Compra` WHERE vehiculo=%s LIMIT 1", vin
+    )
+    if oc_name:
+        return frappe.get_doc("Orden de Compra", oc_name[0][0])
+    copart = frappe.db.get_value("Proveedor", {"nombre": "Copart Central America"}, "name")
+    oc = frappe.new_doc("Orden de Compra")
+    oc.update({
+        "vehiculo": vin,
+        "proveedor": copart,
+        "fecha": fecha,
+        "monto_ofertado": 0,
+        "moneda": "USD",
+        "estado_subasta": "Ganada",
+        "notas": notas,
+    })
+    oc.insert(ignore_permissions=True)
+    frappe.db.set_value("Vehiculo", vin, "orden_compra", oc.name, update_modified=False)
+    frappe.db.set_value("Vehiculo", vin, "fecha_compra", oc.fecha, update_modified=False)
+    return oc
 
 
 def seed():
@@ -114,42 +192,28 @@ def seed():
     ]
     for v in vehiculos:
         vdata = dict(v)
-        target = vdata.pop("estado")
+        target = vdata.pop("estado", None)
         doc = ensure_key("Vehiculo", "vin", vdata)
-        if doc.estado != target:
+        if target and doc.estado != target:
             advance_vehicle(doc.name, target)
 
     honda_vin = "1HGCV1F34LA012345"
-    if not frappe.db.exists("Vehiculo", honda_vin):
-        doc = frappe.new_doc("Vehiculo")
-        doc.update({"vin": honda_vin, "marca": "Honda", "modelo": "Civic", "anio": 2020, "titulo": "Honda Civic 2020"})
-        doc.insert(ignore_permissions=True)
-        advance_vehicle(honda_vin, "En aduana")
-
     copart = frappe.db.get_value("Proveedor", {"nombre": "Copart Central America"}, "name")
-    oc_name = frappe.db.sql("SELECT name FROM `tabOrden de Compra` WHERE vehiculo=%s LIMIT 1", honda_vin)
-    if oc_name:
-        oc_name = oc_name[0][0]
-    else:
-        oc = frappe.new_doc("Orden de Compra")
-        oc.update({
-            "vehiculo": honda_vin,
-            "proveedor": copart,
-            "fecha": "2026-01-20",
-            "monto_ofertado": 6500,
-            "moneda": "USD",
-            "estado_subasta": "Ganada",
-            "notas": "Oferta ganada en subasta por Honda Civic 2020.",
-        })
-        oc.insert(ignore_permissions=True)
-        oc_name = oc.name
-        frappe.db.set_value("Vehiculo", honda_vin, "orden_compra", oc_name, update_modified=False)
-        frappe.db.set_value("Vehiculo", honda_vin, "fecha_compra", oc.fecha, update_modified=False)
 
-    if not frappe.db.exists("Pago Compra", {"orden_compra": oc_name, "monto": 6500}):
+    honda_oc = _ensure_oc(
+        honda_vin,
+        "2026-01-20",
+        "Oferta ganada en subasta por Honda Civic 2020.",
+    )
+    honda = frappe.get_doc("Vehiculo", honda_vin)
+    frappe.db.set_value("Vehiculo", honda_vin, "orden_compra", honda_oc.name, update_modified=False)
+    honda_oc.reload()
+    frappe.db.set_value("Vehiculo", honda_vin, "fecha_compra", honda_oc.fecha, update_modified=False)
+
+    if not frappe.db.exists("Pago Compra", {"orden_compra": honda_oc.name, "monto": 6500}):
         pc = frappe.new_doc("Pago Compra")
         pc.update({
-            "orden_compra": oc_name,
+            "orden_compra": honda_oc.name,
             "fecha_pago": "2026-01-22",
             "monto": 6500,
             "metodo_pago": "Transferencia",
@@ -157,9 +221,27 @@ def seed():
         })
         pc.insert(ignore_permissions=True)
 
+    _ensure_oc("1N4AL3AP8JC123465", "2026-01-15", "Compra registrada de Nissan 200 (demo historica).")
+    _ensure_oc("2T1BURHE0JC123457", "2026-07-29", "Compra registrada de Honda Civic (demo historica).")
+
+    casa_fixed = _normalize_casa_subasta()
+    typo_fixed = _fix_demo_typos()
+
     frappe.db.commit()
-    return {dt: len(frappe.get_all(dt)) for dt in ["Proveedor", "Almacen", "Repuesto", "Cliente", "Vehiculo", "Orden de Compra", "Pago Compra"]}
+
+    print("CASA_FIXED:", casa_fixed)
+    print("TYPO_FIXED:", typo_fixed)
+    print("SEED_COUNTS:", {dt: len(frappe.get_all(dt)) for dt in ["Proveedor", "Almacen", "Repuesto", "Cliente", "Vehiculo", "Orden de Compra", "Pago Compra"]})
+
+    for v in frappe.get_all("Vehiculo", fields=["name", "marca", "modelo", "anio", "estado", "casa_subasta", "orden_compra", "fecha_compra"], order_by="name"):
+        print("VEH:", v.name, "|", v.marca, v.modelo, "|", v.estado, "| casa:", v.casa_subasta, "| OC:", v.orden_compra, "| fecha:", v.fecha_compra)
+    return {
+        "counts": {dt: len(frappe.get_all(dt)) for dt in ["Proveedor", "Almacen", "Repuesto", "Cliente", "Vehiculo", "Orden de Compra", "Pago Compra"]},
+        "casa_fixed": casa_fixed,
+        "typo_fixed": typo_fixed,
+    }
 
 
 if __name__ == "__main__":
-    print("SEED:", seed())
+    result = seed()
+    print("SEED_RESULT:", result)
