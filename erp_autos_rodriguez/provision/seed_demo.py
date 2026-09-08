@@ -266,6 +266,11 @@ def seed():
     print("TYPO_FIXED:", typo_fixed)
     print("SEED_COUNTS:", {dt: len(frappe.get_all(dt)) for dt in ["Proveedor", "Almacen", "Repuesto", "Cliente", "Vehiculo", "Orden de Compra", "Pago Compra"]})
 
+    # Job 4: logistica y aduana (si los doctypes ya existen)
+    if frappe.db.exists("DocType", "Movimiento Vehiculo") and frappe.db.exists("DocType", "Factura Aduana"):
+        from erp_autos_rodriguez.provision.seed_job4 import seed as seed_job4
+        seed_job4()
+
     for v in frappe.get_all("Vehiculo", fields=["name", "marca", "modelo", "anio", "estado", "casa_subasta", "orden_compra", "fecha_compra"], order_by="name"):
         print("VEH:", v.name, "|", v.marca, v.modelo, "|", v.estado, "| casa:", v.casa_subasta, "| OC:", v.orden_compra, "| fecha:", v.fecha_compra)
     return {
