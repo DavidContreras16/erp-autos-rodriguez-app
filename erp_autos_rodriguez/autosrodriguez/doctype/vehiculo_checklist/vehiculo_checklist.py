@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class OrdendeCompra(Document):
+class VehiculoChecklist(Document):
 	pass

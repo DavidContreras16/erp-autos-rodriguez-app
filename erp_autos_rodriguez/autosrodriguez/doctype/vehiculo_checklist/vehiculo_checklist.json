@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-09-08 15:22:56.125173",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "cumple"
+ ],
+ "fields": [
+  {
+   "columns": 8,
+   "fieldname": "item",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item"
+  },
+  {
+   "default": "0",
+   "fieldname": "cumple",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Cumple"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-09-08 15:22:56.125173",
+ "modified_by": "Administrator",
+ "module": "AutosRodriguez",
+ "name": "Vehiculo Checklist",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

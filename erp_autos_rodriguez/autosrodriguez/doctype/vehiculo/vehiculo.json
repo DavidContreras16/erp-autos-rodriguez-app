@@ -4,29 +4,80 @@
  "allow_rename": 1,
  "autoname": "field:vin",
  "creation": "2026-08-22 09:27:34.373480",
- "custom": 1,
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "tab_general",
+  "sb_datos",
   "vin",
   "marca",
   "modelo",
-  "cb_datos",
+  "cb_g1",
   "anio",
   "casa_subasta",
   "estado",
-  "orden_compra",
-  "sb_seguimiento",
+  "cb_g2",
+  "imagen",
+  "titulo",
+  "tab_compra",
+  "sb_compra",
+  "proveedor_compra",
   "fecha_compra",
+  "cb_compra",
+  "monto_ofertado",
+  "moneda",
+  "estado_subasta",
+  "sb_pagos",
+  "pagos",
+  "tab_aduana",
+  "sb_logistica",
   "eta_llegada",
   "numero_contenedor",
-  "cb_links",
-  "titulo",
-  "imagen",
+  "cb_ad1",
+  "almacen_actual",
+  "sb_aduana",
+  "tramitador",
+  "numero_factura_aduana",
+  "fecha_aduana",
+  "cb_ad2",
+  "monto_flete",
+  "monto_aduana",
+  "monto_total_aduana",
+  "documento_aduana",
+  "sb_costos",
   "costo_importacion",
+  "cb_costos",
   "costo_total",
-  "almacen_actual"
+  "tab_taller",
+  "sb_taller",
+  "fecha_ingreso_taller",
+  "tipo_reparacion",
+  "estado_taller",
+  "cb_taller",
+  "descripcion_problema",
+  "sb_repuestos",
+  "repuestos",
+  "sb_calidad",
+  "resultado_inspeccion",
+  "observaciones_calidad",
+  "checklist",
+  "tab_venta",
+  "sb_venta",
+  "cliente",
+  "precio_venta",
+  "forma_pago",
+  "cb_venta",
+  "financiera",
+  "estado_credito",
+  "sb_cotizaciones",
+  "cotizaciones",
+  "sb_entrega",
+  "pagado",
+  "fecha_entrega",
+  "cb_entrega",
+  "recibido_por",
+  "firma_entrega"
  ],
  "fields": [
   {
@@ -52,13 +103,9 @@
    "reqd": 1
   },
   {
-   "fieldname": "cb_datos",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "anio",
    "fieldtype": "Int",
-   "label": "A\u00f1o"
+   "label": "Anio"
   },
   {
    "fieldname": "casa_subasta",
@@ -66,24 +113,13 @@
    "label": "Casa de Subasta"
   },
   {
+   "default": "Solicitado",
    "fieldname": "estado",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Estado",
-   "options": "Solicitado\nComprado\nEn subasta\nCancelado\nEn transito\nEn aduana\nEn bodega SPS\nEn taller\nEn reparacion\nEsperando repuestos\nListo para venta\nEn negociacion\nEn tramite de credito\nVendido",
-   "read_only": 1
-  },
-  {
-   "fieldname": "orden_compra",
-   "fieldtype": "Link",
-   "label": "Orden de Compra",
-   "options": "Orden de Compra"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "sb_seguimiento",
-   "fieldtype": "Section Break",
-   "label": "Seguimiento (opcional)"
+   "options": "Solicitado\nComprado\nEn subasta\nCancelado\nEn transito\nEn aduana\nEn bodega SPS\nEn taller\nEn reparacion\nEsperando repuestos\nListo para venta\nEn negociacion\nEn tramite de credito\nVendido"
   },
   {
    "fieldname": "fecha_compra",
@@ -98,24 +134,19 @@
   {
    "fieldname": "numero_contenedor",
    "fieldtype": "Data",
-   "label": "N\u00b0 Contenedor"
-  },
-  {
-   "fieldname": "cb_links",
-   "fieldtype": "Column Break"
+   "label": "Numero de Contenedor"
   },
   {
    "fieldname": "titulo",
    "fieldtype": "Data",
    "hidden": 1,
-   "in_list_view": 1,
-   "label": "T\u00edtulo",
+   "label": "Titulo",
    "read_only": 1
   },
   {
    "fieldname": "imagen",
    "fieldtype": "Attach Image",
-   "label": "Foto"
+   "label": "Imagen"
   },
   {
    "fieldname": "costo_importacion",
@@ -124,6 +155,7 @@
    "read_only": 1
   },
   {
+   "bold": 1,
    "fieldname": "costo_total",
    "fieldtype": "Currency",
    "label": "Costo Total",
@@ -132,16 +164,307 @@
   {
    "fieldname": "almacen_actual",
    "fieldtype": "Link",
-   "label": "Almacen Actual",
-   "options": "Almacen",
+   "label": "Ubicacion Actual",
+   "options": "Almacen"
+  },
+  {
+   "fieldname": "tab_general",
+   "fieldtype": "Tab Break",
+   "label": "General"
+  },
+  {
+   "fieldname": "sb_datos",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cb_g1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cb_g2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tab_compra",
+   "fieldtype": "Tab Break",
+   "label": "Compra"
+  },
+  {
+   "fieldname": "sb_compra",
+   "fieldtype": "Section Break",
+   "label": "Datos de Compra"
+  },
+  {
+   "fieldname": "proveedor_compra",
+   "fieldtype": "Link",
+   "label": "Casa de Subasta (Proveedor)",
+   "link_filters": "[[\"Proveedor\",\"tipo\",\"=\",\"Casa de Subasta\"]]",
+   "options": "Proveedor"
+  },
+  {
+   "fieldname": "cb_compra",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "monto_ofertado",
+   "fieldtype": "Currency",
+   "label": "Monto Ofertado"
+  },
+  {
+   "default": "USD",
+   "fieldname": "moneda",
+   "fieldtype": "Select",
+   "label": "Moneda",
+   "options": "USD\nHNL"
+  },
+  {
+   "default": "Pendiente",
+   "fieldname": "estado_subasta",
+   "fieldtype": "Select",
+   "label": "Estado Subasta",
+   "options": "Pendiente\nGanada\nPerdida"
+  },
+  {
+   "fieldname": "sb_pagos",
+   "fieldtype": "Section Break",
+   "label": "Pagos"
+  },
+  {
+   "fieldname": "pagos",
+   "fieldtype": "Table",
+   "label": "Pagos",
+   "options": "Vehiculo Pago"
+  },
+  {
+   "fieldname": "tab_aduana",
+   "fieldtype": "Tab Break",
+   "label": "Aduana"
+  },
+  {
+   "fieldname": "sb_logistica",
+   "fieldtype": "Section Break",
+   "label": "Logistica"
+  },
+  {
+   "fieldname": "cb_ad1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sb_aduana",
+   "fieldtype": "Section Break",
+   "label": "Factura de Aduana"
+  },
+  {
+   "fieldname": "tramitador",
+   "fieldtype": "Link",
+   "label": "Tramitador Aduanal",
+   "link_filters": "[[\"Proveedor\",\"tipo\",\"=\",\"Tramitador Aduanal\"]]",
+   "options": "Proveedor"
+  },
+  {
+   "fieldname": "numero_factura_aduana",
+   "fieldtype": "Data",
+   "label": "Numero de Factura"
+  },
+  {
+   "fieldname": "fecha_aduana",
+   "fieldtype": "Date",
+   "label": "Fecha"
+  },
+  {
+   "fieldname": "cb_ad2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "monto_flete",
+   "fieldtype": "Currency",
+   "label": "Monto Flete"
+  },
+  {
+   "fieldname": "monto_aduana",
+   "fieldtype": "Currency",
+   "label": "Monto Aduana"
+  },
+  {
+   "fieldname": "monto_total_aduana",
+   "fieldtype": "Currency",
+   "label": "Total Aduana",
    "read_only": 1
+  },
+  {
+   "fieldname": "documento_aduana",
+   "fieldtype": "Attach",
+   "label": "Documento Adjunto"
+  },
+  {
+   "fieldname": "sb_costos",
+   "fieldtype": "Section Break",
+   "label": "Costos"
+  },
+  {
+   "fieldname": "cb_costos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tab_taller",
+   "fieldtype": "Tab Break",
+   "label": "Taller"
+  },
+  {
+   "fieldname": "sb_taller",
+   "fieldtype": "Section Break",
+   "label": "Orden de Trabajo"
+  },
+  {
+   "fieldname": "fecha_ingreso_taller",
+   "fieldtype": "Date",
+   "label": "Fecha de Ingreso"
+  },
+  {
+   "fieldname": "tipo_reparacion",
+   "fieldtype": "Select",
+   "label": "Tipo de Reparacion",
+   "options": "\nMecanica\nElectrica\nCarroceria\nVarias"
+  },
+  {
+   "fieldname": "estado_taller",
+   "fieldtype": "Select",
+   "label": "Estado Taller",
+   "options": "\nAbierta\nEn proceso\nEsperando repuestos\nFinalizada"
+  },
+  {
+   "fieldname": "cb_taller",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "descripcion_problema",
+   "fieldtype": "Small Text",
+   "label": "Descripcion del Problema"
+  },
+  {
+   "fieldname": "sb_repuestos",
+   "fieldtype": "Section Break",
+   "label": "Repuestos Usados"
+  },
+  {
+   "fieldname": "repuestos",
+   "fieldtype": "Table",
+   "label": "Repuestos",
+   "options": "Vehiculo Repuesto"
+  },
+  {
+   "fieldname": "sb_calidad",
+   "fieldtype": "Section Break",
+   "label": "Inspeccion de Calidad"
+  },
+  {
+   "fieldname": "resultado_inspeccion",
+   "fieldtype": "Select",
+   "label": "Resultado",
+   "options": "\nPendiente\nAprobado\nRechazado"
+  },
+  {
+   "fieldname": "observaciones_calidad",
+   "fieldtype": "Small Text",
+   "label": "Observaciones"
+  },
+  {
+   "fieldname": "checklist",
+   "fieldtype": "Table",
+   "label": "Checklist",
+   "options": "Vehiculo Checklist"
+  },
+  {
+   "fieldname": "tab_venta",
+   "fieldtype": "Tab Break",
+   "label": "Venta"
+  },
+  {
+   "fieldname": "sb_venta",
+   "fieldtype": "Section Break",
+   "label": "Datos de Venta"
+  },
+  {
+   "fieldname": "cliente",
+   "fieldtype": "Link",
+   "label": "Cliente",
+   "options": "Cliente"
+  },
+  {
+   "fieldname": "precio_venta",
+   "fieldtype": "Currency",
+   "label": "Precio de Venta"
+  },
+  {
+   "fieldname": "forma_pago",
+   "fieldtype": "Select",
+   "label": "Forma de Pago",
+   "options": "\nContado\nFinanciado"
+  },
+  {
+   "fieldname": "cb_venta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "financiera",
+   "fieldtype": "Link",
+   "label": "Financiera",
+   "link_filters": "[[\"Proveedor\",\"tipo\",\"=\",\"Financiera\"]]",
+   "options": "Proveedor"
+  },
+  {
+   "fieldname": "estado_credito",
+   "fieldtype": "Select",
+   "label": "Estado del Credito",
+   "options": "\nEnviado\nEn revision\nAprobado\nRechazado"
+  },
+  {
+   "fieldname": "sb_cotizaciones",
+   "fieldtype": "Section Break",
+   "label": "Cotizaciones"
+  },
+  {
+   "fieldname": "cotizaciones",
+   "fieldtype": "Table",
+   "label": "Cotizaciones",
+   "options": "Vehiculo Cotizacion"
+  },
+  {
+   "fieldname": "sb_entrega",
+   "fieldtype": "Section Break",
+   "label": "Entrega"
+  },
+  {
+   "default": "0",
+   "fieldname": "pagado",
+   "fieldtype": "Check",
+   "label": "Pagado"
+  },
+  {
+   "fieldname": "fecha_entrega",
+   "fieldtype": "Date",
+   "label": "Fecha de Entrega"
+  },
+  {
+   "fieldname": "cb_entrega",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "recibido_por",
+   "fieldtype": "Data",
+   "label": "Recibido Por"
+  },
+  {
+   "fieldname": "firma_entrega",
+   "fieldtype": "Attach",
+   "label": "Firma / Comprobante"
   }
  ],
  "grid_page_length": 50,
  "image_field": "imagen",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-08 13:32:12.944704",
+ "modified": "2026-09-08 16:08:03.050860",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Vehiculo",

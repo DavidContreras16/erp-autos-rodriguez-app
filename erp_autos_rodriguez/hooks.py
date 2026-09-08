@@ -262,14 +262,8 @@ on_session_creation = [
 
 
 fixtures = [
-    {"dt": "Workflow", "filters": [["name", "=", "Flujo Vehiculo"]]},
-    {"dt": "Workflow State"},
-    {"dt": "Workflow Action Master"},
-    {"dt": "Server Script", "filters": [["name", "=", "Vehiculo - Generar Titulo"]]},
-    {"dt": "Server Script", "filters": [["name", "=", "OC - Estado Subasta a Vehiculo"]]},
-    {"dt": "Server Script", "filters": [["name", "=", "Factura Aduana - Calcular Total"]]},
-    {"dt": "Server Script", "filters": [["name", "=", "Factura Aduana - Costo Importacion"]]},
-    {"dt": "Server Script", "filters": [["name", "=", "Movimiento - Estado y Almacen"]]},
+    # Replanteo: Vehiculo es contenedor unico, Kanban libre (sin Workflow) y la
+    # logica vive en el controller vehiculo.py (ya no en Server Scripts).
     {"dt": "Number Card", "filters": [["name", "=", "Total Vehiculos"]]},
     {"dt": "Dashboard Chart", "filters": [["name", "=", "Vehiculos por Estado"]]},
     {"dt": "Kanban Board", "filters": [["name", "=", "Vehiculos - Flujo"]]},

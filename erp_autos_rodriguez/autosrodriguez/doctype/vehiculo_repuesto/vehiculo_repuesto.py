@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class MovimientoVehiculo(Document):
+class VehiculoRepuesto(Document):
 	pass

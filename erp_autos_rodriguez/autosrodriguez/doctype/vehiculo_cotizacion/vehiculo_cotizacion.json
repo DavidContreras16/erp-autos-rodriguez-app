@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-09-08 15:22:56.666544",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "cliente",
+  "fecha",
+  "precio_ofertado",
+  "forma_pago",
+  "estado"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "fieldname": "cliente",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cliente",
+   "options": "Cliente"
+  },
+  {
+   "columns": 2,
+   "fieldname": "fecha",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha"
+  },
+  {
+   "columns": 2,
+   "fieldname": "precio_ofertado",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Precio"
+  },
+  {
+   "columns": 2,
+   "fieldname": "forma_pago",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Forma Pago",
+   "options": "Contado\nFinanciado"
+  },
+  {
+   "fieldname": "estado",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Estado",
+   "options": "Abierta\nAceptada\nRechazada"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-09-08 15:22:56.666544",
+ "modified_by": "Administrator",
+ "module": "AutosRodriguez",
+ "name": "Vehiculo Cotizacion",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

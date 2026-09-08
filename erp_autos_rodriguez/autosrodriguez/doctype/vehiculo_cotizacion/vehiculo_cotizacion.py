@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class FacturaAduana(Document):
+class VehiculoCotizacion(Document):
 	pass

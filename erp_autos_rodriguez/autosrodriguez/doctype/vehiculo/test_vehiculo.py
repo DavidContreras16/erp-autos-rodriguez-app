@@ -13,9 +13,9 @@ IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 
 
-class IntegrationTestMovimientoVehiculo(IntegrationTestCase):
+class IntegrationTestVehiculo(IntegrationTestCase):
 	"""
-	Integration tests for MovimientoVehiculo.
+	Integration tests for Vehiculo.
 	Use this class for testing interactions between multiple components.
 	"""
 
