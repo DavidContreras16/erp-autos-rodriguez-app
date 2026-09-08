@@ -14,7 +14,7 @@
  "label": "Autos Rodriguez",
  "link_type": "DocType",
  "links": [],
- "modified": "2026-09-04 18:48:20.057625",
+ "modified": "2026-09-08 14:17:08.562865",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Autos Rodriguez",
@@ -72,6 +72,20 @@
    "icon": "wrench",
    "label": "Repuestos",
    "link_to": "Repuesto",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "icon": "map-pin",
+   "label": "Movimientos",
+   "link_to": "Movimiento Vehiculo",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "icon": "file-text",
+   "label": "Facturas de Aduana",
+   "link_to": "Factura Aduana",
    "type": "DocType"
   }
  ],

@@ -273,4 +273,8 @@ fixtures = [
     {"dt": "Number Card", "filters": [["name", "=", "Total Vehiculos"]]},
     {"dt": "Dashboard Chart", "filters": [["name", "=", "Vehiculos por Estado"]]},
     {"dt": "Kanban Board", "filters": [["name", "=", "Vehiculos - Flujo"]]},
+    # El fork autogenera un sidebar recortado (3 doctypes) por modulo si no
+    # existe un Workspace Sidebar con name == modulo. Se declara como fixture
+    # para que sobreviva a migrate (que lo borraba) y se reimporte siempre.
+    {"dt": "Workspace Sidebar", "filters": [["name", "=", "AutosRodriguez"]]},
 ]
