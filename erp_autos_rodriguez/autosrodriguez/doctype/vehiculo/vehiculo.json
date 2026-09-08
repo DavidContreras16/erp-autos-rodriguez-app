@@ -23,7 +23,10 @@
   "numero_contenedor",
   "cb_links",
   "titulo",
-  "imagen"
+  "imagen",
+  "costo_importacion",
+  "costo_total",
+  "almacen_actual"
  ],
  "fields": [
   {
@@ -113,13 +116,32 @@
    "fieldname": "imagen",
    "fieldtype": "Attach Image",
    "label": "Foto"
+  },
+  {
+   "fieldname": "costo_importacion",
+   "fieldtype": "Currency",
+   "label": "Costo Importacion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "costo_total",
+   "fieldtype": "Currency",
+   "label": "Costo Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "almacen_actual",
+   "fieldtype": "Link",
+   "label": "Almacen Actual",
+   "options": "Almacen",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "image_field": "imagen",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-04 16:06:24.951054",
+ "modified": "2026-09-08 13:32:12.944704",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Vehiculo",

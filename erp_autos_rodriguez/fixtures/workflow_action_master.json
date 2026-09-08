@@ -2,6 +2,27 @@
  {
   "docstatus": 0,
   "doctype": "Workflow Action Master",
+  "modified": "2026-09-04 12:16:40.057873",
+  "name": "Subasta Ganada",
+  "workflow_action_name": "Subasta Ganada"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-09-04 12:16:40.996904",
+  "name": "Subasta Perdida",
+  "workflow_action_name": "Subasta Perdida"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2026-09-08 13:02:07.705860",
+  "name": "Enviar a Transito",
+  "workflow_action_name": "Enviar a Transito"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
   "modified": "2026-08-22 02:42:14.940648",
   "name": "Approve",
   "workflow_action_name": "Approve"

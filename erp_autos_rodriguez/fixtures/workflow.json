@@ -5,7 +5,7 @@
   "document_type": "Vehiculo",
   "enable_action_confirmation": 0,
   "is_active": 1,
-  "modified": "2026-08-23 09:23:42.090563",
+  "modified": "2026-09-08 13:50:51.255926",
   "name": "Flujo Vehiculo",
   "override_status": 0,
   "send_email_alert": 0,
@@ -370,6 +370,50 @@
     "next_state": "Vendido",
     "send_email_to_creator": 0,
     "state": "En negociacion",
+    "transition_tasks": null,
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Enviar a Transito",
+    "allow_self_approval": 1,
+    "allowed": "System Manager",
+    "condition": null,
+    "next_state": "En transito",
+    "send_email_to_creator": 0,
+    "state": "Comprado",
+    "transition_tasks": null,
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Enviar a Transito",
+    "allow_self_approval": 1,
+    "allowed": "Logistica",
+    "condition": null,
+    "next_state": "En transito",
+    "send_email_to_creator": 0,
+    "state": "Comprado",
+    "transition_tasks": null,
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Continuar",
+    "allow_self_approval": 1,
+    "allowed": "Logistica",
+    "condition": null,
+    "next_state": "En aduana",
+    "send_email_to_creator": 0,
+    "state": "En transito",
+    "transition_tasks": null,
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Continuar",
+    "allow_self_approval": 1,
+    "allowed": "Logistica",
+    "condition": null,
+    "next_state": "En bodega SPS",
+    "send_email_to_creator": 0,
+    "state": "En aduana",
     "transition_tasks": null,
     "workflow_builder_id": null
    }
