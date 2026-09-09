@@ -4,19 +4,19 @@
    {
     "column_name": "Solicitado",
     "indicator": "Gray",
-    "order": "[\n \"4T1B11HK5KU987654\"\n]",
+    "order": "[\"4T1B11HK5KU987654\"]",
     "status": "Active"
    },
    {
     "column_name": "Comprado",
     "indicator": "Blue",
-    "order": "[]",
+    "order": "[\"2T1BURHE0JC123457\"]",
     "status": "Active"
    },
    {
     "column_name": "En subasta",
     "indicator": "Orange",
-    "order": "[\n \"2C3CDXBG9MH123456\",\n \"3FADP4EJ5DM123458\",\n \"1HGCM82633A123456\"\n]",
+    "order": "[\"2C3CDXBG9MH123456\", \"3FADP4EJ5DM123458\", \"1HGCM82633A123456\"]",
     "status": "Active"
    },
    {
@@ -28,49 +28,49 @@
    {
     "column_name": "En transito",
     "indicator": "Blue",
-    "order": "[\n \"WDDPK4HA4KF765432\",\n \"1N4AL3AP8JC123465\"\n]",
+    "order": "[\"WDDPK4HA4KF765432\", \"1N4AL3AP8JC123465\", \"1FTFW1ET5DFC12345\"]",
     "status": "Active"
    },
    {
     "column_name": "En aduana",
     "indicator": "Orange",
-    "order": "[\n \"1HGCV1F34LA012345\",\n \"1FTFW1ET5DFC12345\"\n]",
+    "order": "[\"1HGCV1F34LA012345\"]",
     "status": "Active"
    },
    {
     "column_name": "En bodega SPS",
     "indicator": "Blue",
-    "order": "[\n \"5NPE24AF4FH123459\",\n \"2T1BURHE0JC123457\"\n]",
+    "order": "[\"5NPE24AF4FH123459\"]",
     "status": "Active"
    },
    {
     "column_name": "En taller",
     "indicator": "Orange",
-    "order": "[\n \"3VWD07AJ5EM123460\"\n]",
+    "order": "[\"3VWD07AJ5EM123460\"]",
     "status": "Active"
    },
    {
     "column_name": "En reparacion",
     "indicator": "Orange",
-    "order": "[\n \"5N1AT2MV2JC098765\",\n \"1G1ZE5ST8HF123461\"\n]",
+    "order": "[\"5N1AT2MV2JC098765\", \"1G1ZE5ST8HF123461\"]",
     "status": "Active"
    },
    {
     "column_name": "Esperando repuestos",
     "indicator": "Red",
-    "order": "[\n \"JTDKN3DU0E1123462\"\n]",
+    "order": "[\"JTDKN3DU0E1123462\"]",
     "status": "Active"
    },
    {
     "column_name": "Listo para venta",
     "indicator": "Green",
-    "order": "[\n \"3VWD17AJ8KM654321\"\n]",
+    "order": "[\"3VWD17AJ8KM654321\"]",
     "status": "Active"
    },
    {
     "column_name": "En negociacion",
     "indicator": "Blue",
-    "order": "[\n \"5YFBURHE1FP123463\"\n]",
+    "order": "[\"5YFBURHE1FP123463\"]",
     "status": "Active"
    },
    {
@@ -82,7 +82,7 @@
    {
     "column_name": "Vendido",
     "indicator": "Green",
-    "order": "[\n \"1N4AL3AP8JC123464\"\n]",
+    "order": "[\"1N4AL3AP8JC123464\"]",
     "status": "Active"
    }
   ],
@@ -92,7 +92,7 @@
   "fields": null,
   "filters": null,
   "kanban_board_name": "Vehiculos - Flujo",
-  "modified": "2026-08-30 23:18:17.237492",
+  "modified": "2026-09-08 18:23:32.035925",
   "name": "Vehiculos - Flujo",
   "private": 0,
   "reference_doctype": "Vehiculo",

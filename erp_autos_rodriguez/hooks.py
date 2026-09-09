@@ -264,8 +264,11 @@ on_session_creation = [
 fixtures = [
     # Replanteo: Vehiculo es contenedor unico, Kanban libre (sin Workflow) y la
     # logica vive en el controller vehiculo.py (ya no en Server Scripts).
-    {"dt": "Number Card", "filters": [["name", "=", "Total Vehiculos"]]},
-    {"dt": "Dashboard Chart", "filters": [["name", "=", "Vehiculos por Estado"]]},
+    {"dt": "Number Card", "filters": [["name", "in", [
+        "Total Vehiculos", "Vehiculos en Inventario", "Vehiculos Vendidos",
+        "Inversion en Inventario", "Valor de Ventas"]]]},
+    {"dt": "Dashboard Chart", "filters": [["name", "in", [
+        "Vehiculos por Estado", "Ventas por Mes"]]]},
     {"dt": "Kanban Board", "filters": [["name", "=", "Vehiculos - Flujo"]]},
     # El fork autogenera un sidebar recortado (3 doctypes) por modulo si no
     # existe un Workspace Sidebar con name == modulo. Se declara como fixture

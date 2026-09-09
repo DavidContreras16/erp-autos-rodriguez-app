@@ -1,7 +1,16 @@
 {
  "app": "erp_autos_rodriguez",
- "charts": [],
- "content": "[]",
+ "charts": [
+  {
+   "chart_name": "Vehiculos por Estado",
+   "label": "Vehiculos por Estado"
+  },
+  {
+   "chart_name": "Ventas por Mes",
+   "label": "Ventas por Mes"
+  }
+ ],
+ "content": "[{\"id\": \"hd1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Panel Autos Rodriguez</b></span>\", \"col\": 12}}, {\"id\": \"ncA\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Vehiculos en Inventario\", \"col\": 3}}, {\"id\": \"ncB\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Vehiculos Vendidos\", \"col\": 3}}, {\"id\": \"ncC\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Inversion en Inventario\", \"col\": 3}}, {\"id\": \"ncD\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Valor de Ventas\", \"col\": 3}}, {\"id\": \"chA\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Vehiculos por Estado\", \"col\": 6}}, {\"id\": \"chB\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Ventas por Mes\", \"col\": 6}}, {\"id\": \"hd2\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\"><b>Accesos rapidos</b></span>\", \"col\": 12}}, {\"id\": \"scA\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Vehiculos\", \"col\": 3}}, {\"id\": \"scB\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Proveedores\", \"col\": 3}}, {\"id\": \"scC\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Clientes\", \"col\": 3}}, {\"id\": \"scD\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Almacenes\", \"col\": 3}}]",
  "creation": "2026-09-03 13:55:54.401878",
  "custom_blocks": [],
  "docstatus": 0,
@@ -14,11 +23,32 @@
  "label": "Autos Rodriguez",
  "link_type": "DocType",
  "links": [],
- "modified": "2026-09-08 16:14:40.550365",
+ "modified": "2026-09-08 18:41:56.979601",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Autos Rodriguez",
- "number_cards": [],
+ "number_cards": [
+  {
+   "label": "Vehiculos en Inventario",
+   "number_card_name": "Vehiculos en Inventario"
+  },
+  {
+   "label": "Vehiculos Vendidos",
+   "number_card_name": "Vehiculos Vendidos"
+  },
+  {
+   "label": "Inversion en Inventario",
+   "number_card_name": "Inversion en Inventario"
+  },
+  {
+   "label": "Valor de Ventas",
+   "number_card_name": "Valor de Ventas"
+  },
+  {
+   "label": "Total Vehiculos",
+   "number_card_name": "Total Vehiculos"
+  }
+ ],
  "owner": "Administrator",
  "public": 1,
  "quick_lists": [],
@@ -26,8 +56,10 @@
  "sequence_id": 1.0,
  "shortcuts": [
   {
-   "doc_view": "",
+   "color": "Blue",
+   "doc_view": "Kanban",
    "icon": "truck",
+   "kanban_board": "Vehiculos - Flujo",
    "label": "Vehiculos",
    "link_to": "Vehiculo",
    "type": "DocType"
