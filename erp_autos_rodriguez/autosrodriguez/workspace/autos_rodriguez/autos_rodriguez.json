@@ -14,7 +14,7 @@
  "label": "Autos Rodriguez",
  "link_type": "DocType",
  "links": [],
- "modified": "2026-09-08 14:17:08.562865",
+ "modified": "2026-09-08 16:14:40.550365",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Autos Rodriguez",
@@ -30,20 +30,6 @@
    "icon": "truck",
    "label": "Vehiculos",
    "link_to": "Vehiculo",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "icon": "shopping-cart",
-   "label": "Ordenes de Compra",
-   "link_to": "Orden de Compra",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "icon": "credit-card",
-   "label": "Pagos de Compra",
-   "link_to": "Pago Compra",
    "type": "DocType"
   },
   {
@@ -72,20 +58,6 @@
    "icon": "wrench",
    "label": "Repuestos",
    "link_to": "Repuesto",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "icon": "map-pin",
-   "label": "Movimientos",
-   "link_to": "Movimiento Vehiculo",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "icon": "file-text",
-   "label": "Facturas de Aduana",
-   "link_to": "Factura Aduana",
    "type": "DocType"
   }
  ],

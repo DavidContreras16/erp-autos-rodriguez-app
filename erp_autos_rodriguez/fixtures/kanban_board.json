@@ -4,19 +4,19 @@
    {
     "column_name": "Solicitado",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"4T1B11HK5KU987654\"\n]",
     "status": "Active"
    },
    {
     "column_name": "Comprado",
     "indicator": "Blue",
-    "order": "[\"1N4AL3AP8JC123465\"]",
+    "order": "[]",
     "status": "Active"
    },
    {
     "column_name": "En subasta",
     "indicator": "Orange",
-    "order": "[\n \"3FADP4EJ5DM123458\",\n \"2T1BURHE0JC123457\",\n \"1HGCM82633A123456\"\n]",
+    "order": "[\n \"2C3CDXBG9MH123456\",\n \"3FADP4EJ5DM123458\",\n \"1HGCM82633A123456\"\n]",
     "status": "Active"
    },
    {
@@ -28,49 +28,49 @@
    {
     "column_name": "En transito",
     "indicator": "Blue",
-    "order": "[\"1FTFW1ET5DFC12345\"]",
+    "order": "[\n \"WDDPK4HA4KF765432\",\n \"1N4AL3AP8JC123465\"\n]",
     "status": "Active"
    },
    {
     "column_name": "En aduana",
     "indicator": "Orange",
-    "order": "[]",
+    "order": "[\n \"1HGCV1F34LA012345\",\n \"1FTFW1ET5DFC12345\"\n]",
     "status": "Active"
    },
    {
     "column_name": "En bodega SPS",
     "indicator": "Blue",
-    "order": "[\n \"5NPE24AF4FH123459\"\n]",
+    "order": "[\n \"5NPE24AF4FH123459\",\n \"2T1BURHE0JC123457\"\n]",
     "status": "Active"
    },
    {
     "column_name": "En taller",
     "indicator": "Orange",
-    "order": "[\"3VWD07AJ5EM123460\"]",
+    "order": "[\n \"3VWD07AJ5EM123460\"\n]",
     "status": "Active"
    },
    {
     "column_name": "En reparacion",
     "indicator": "Orange",
-    "order": "[\"1G1ZE5ST8HF123461\"]",
+    "order": "[\n \"5N1AT2MV2JC098765\",\n \"1G1ZE5ST8HF123461\"\n]",
     "status": "Active"
    },
    {
     "column_name": "Esperando repuestos",
     "indicator": "Red",
-    "order": "[\"JTDKN3DU0E1123462\"]",
+    "order": "[\n \"JTDKN3DU0E1123462\"\n]",
     "status": "Active"
    },
    {
     "column_name": "Listo para venta",
     "indicator": "Green",
-    "order": "[\"5YFBURHE1FP123463\"]",
+    "order": "[\n \"3VWD17AJ8KM654321\"\n]",
     "status": "Active"
    },
    {
     "column_name": "En negociacion",
     "indicator": "Blue",
-    "order": "[]",
+    "order": "[\n \"5YFBURHE1FP123463\"\n]",
     "status": "Active"
    },
    {
@@ -82,7 +82,7 @@
    {
     "column_name": "Vendido",
     "indicator": "Green",
-    "order": "[\"1N4AL3AP8JC123464\"]",
+    "order": "[\n \"1N4AL3AP8JC123464\"\n]",
     "status": "Active"
    }
   ],

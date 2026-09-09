@@ -1,6 +1,6 @@
 {
  "app": "erp_autos_rodriguez",
- "creation": "2026-09-08 14:23:45.266974",
+ "creation": "2026-09-08 16:14:39.546135",
  "docstatus": 0,
  "doctype": "Workspace Sidebar",
  "header_icon": "hammer",
@@ -26,30 +26,6 @@
    "keep_closed": 0,
    "label": "Vehiculos",
    "link_to": "Vehiculo",
-   "link_type": "DocType",
-   "show_arrow": 0,
-   "type": "Link"
-  },
-  {
-   "child": 0,
-   "collapsible": 1,
-   "icon": "shopping-cart",
-   "indent": 0,
-   "keep_closed": 0,
-   "label": "Ordenes de Compra",
-   "link_to": "Orden de Compra",
-   "link_type": "DocType",
-   "show_arrow": 0,
-   "type": "Link"
-  },
-  {
-   "child": 0,
-   "collapsible": 1,
-   "icon": "credit-card",
-   "indent": 0,
-   "keep_closed": 0,
-   "label": "Pagos de Compra",
-   "link_to": "Pago Compra",
    "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
@@ -101,33 +77,9 @@
    "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
-  },
-  {
-   "child": 0,
-   "collapsible": 1,
-   "icon": "map-pin",
-   "indent": 0,
-   "keep_closed": 0,
-   "label": "Movimientos",
-   "link_to": "Movimiento Vehiculo",
-   "link_type": "DocType",
-   "show_arrow": 0,
-   "type": "Link"
-  },
-  {
-   "child": 0,
-   "collapsible": 1,
-   "icon": "file-text",
-   "indent": 0,
-   "keep_closed": 0,
-   "label": "Facturas de Aduana",
-   "link_to": "Factura Aduana",
-   "link_type": "DocType",
-   "show_arrow": 0,
-   "type": "Link"
   }
  ],
- "modified": "2026-09-08 14:23:45.266974",
+ "modified": "2026-09-08 16:14:39.546135",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "AutosRodriguez",
