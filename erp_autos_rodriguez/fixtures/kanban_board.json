@@ -64,13 +64,13 @@
    {
     "column_name": "Listo para venta",
     "indicator": "Green",
-    "order": "[\"3VWD17AJ8KM654321\"]",
+    "order": "[]",
     "status": "Active"
    },
    {
     "column_name": "En negociacion",
     "indicator": "Blue",
-    "order": "[\"5YFBURHE1FP123463\"]",
+    "order": "[]",
     "status": "Active"
    },
    {
@@ -82,7 +82,7 @@
    {
     "column_name": "Vendido",
     "indicator": "Green",
-    "order": "[\"1N4AL3AP8JC123464\"]",
+    "order": "[\"3VWD17AJ8KM654321\", \"1N4AL3AP8JC123464\", \"5YFBURHE1FP123463\"]",
     "status": "Active"
    }
   ],
@@ -92,7 +92,7 @@
   "fields": null,
   "filters": null,
   "kanban_board_name": "Vehiculos - Flujo",
-  "modified": "2026-09-08 18:23:32.035925",
+  "modified": "2026-09-09 09:35:54.201773",
   "name": "Vehiculos - Flujo",
   "private": 0,
   "reference_doctype": "Vehiculo",

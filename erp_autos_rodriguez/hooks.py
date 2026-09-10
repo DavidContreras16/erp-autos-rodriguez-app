@@ -264,6 +264,7 @@ on_session_creation = [
 fixtures = [
     # Replanteo: Vehiculo es contenedor unico, Kanban libre (sin Workflow) y la
     # logica vive en el controller vehiculo.py (ya no en Server Scripts).
+    {"dt": "Role", "filters": [["name", "=", "Operador"]]},
     {"dt": "Number Card", "filters": [["name", "in", [
         "Total Vehiculos", "Vehiculos en Inventario", "Vehiculos Vendidos",
         "Inversion en Inventario", "Valor de Ventas"]]]},
