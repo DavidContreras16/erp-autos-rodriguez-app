@@ -156,8 +156,13 @@ def home():
 
 
 def all():
-    print_format()
-    kanban_default()
+    # print_format (estandar) y kanban_default (doctype) requieren developer_mode;
+    # en un fresh install ya vienen del JSON de la app. home() (cards/workspace) corre siempre.
+    if frappe.conf.developer_mode:
+        print_format()
+        kanban_default()
+    else:
+        print("SETUP_UI: print_format y default_view ya vienen del install (sin developer_mode).")
     home()
     frappe.db.commit()
     print("SETUP_UI_DONE")

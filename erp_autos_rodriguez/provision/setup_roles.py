@@ -70,8 +70,11 @@ def _ensure_user(email, first, roles, pwd):
 
 def run():
     _ensure_operador_role()
-    _set_perms()
-    _drop_old_roles()
+    # Los permisos de Vehiculo/catalogos ya vienen del JSON del doctype al instalar la app.
+    # Solo se reescriben en dev (modificar doctypes estandar requiere developer_mode).
+    if frappe.conf.developer_mode:
+        _set_perms()
+        _drop_old_roles()
     _ensure_user("operador@autosrodriguez.com", "Operador", ["Operador"], "Autos2026!")
     _ensure_user("admin@autosrodriguez.com", "Administrador", ["System Manager", "Operador"], "Autos2026!")
     frappe.db.commit()
