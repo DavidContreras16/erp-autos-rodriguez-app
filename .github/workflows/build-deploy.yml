@@ -1,0 +1,82 @@
+# Construye la imagen Docker (Frappe v16 + esta app) y la despliega con Portainer.
+#
+# - push a main / ejecucion manual: build + push a GHCR con tag = SHA del commit,
+#   y despliegue solo si la variable del repo PORTAINER_DEPLOY == 'true'.
+# - pull_request: solo build + smoke test (no sube la imagen ni despliega).
+#
+# Configuracion en GitHub (Settings):
+#   Secrets and variables > Actions > Secrets > PORTAINER_WEBHOOK_URL
+#   (no se usa Environment: la cuenta no es admin del repo)
+#   Secrets and variables > Actions > Variables > PORTAINER_DEPLOY = true
+
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: build-deploy-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    # Workflow reutilizable de frappe_docker fijado a un commit revisado
+    # (380b9d0, 2026-09-02). No usar @main: ese codigo corre con permiso
+    # para subir paquetes a nuestro GHCR.
+    uses: frappe/frappe_docker/.github/workflows/app-build-image.yml@380b9d069ab949754fe78331af647b673984dc04
+    with:
+      app_name: erp_autos_rodriguez
+      app_repo: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+      # Rama o tag (se escribe como "branch" en apps.json), no un SHA.
+      app_ref: ${{ github.head_ref || github.ref_name }}
+      frappe_ref: version-16
+      builder_ref: 380b9d069ab949754fe78331af647b673984dc04
+      image_name: ghcr.io/davidcontreras16/erp-autos-rodriguez-app
+      image_tag: ${{ github.sha }}
+      registry: ghcr.io
+      push: ${{ github.event_name != 'pull_request' }}
+
+  deploy:
+    needs: build
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref == 'refs/heads/main' &&
+      vars.PORTAINER_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Trigger Portainer webhook
+        env:
+          WEBHOOK: ${{ secrets.PORTAINER_WEBHOOK_URL }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then
+            echo "::error::Falta el secreto PORTAINER_WEBHOOK_URL (Settings > Secrets and variables > Actions)"
+            exit 1
+          fi
+          # Portainer responde antes de terminar el despliegue.
+          curl -fsS -X POST "${WEBHOOK}?CUSTOM_TAG=${GITHUB_SHA}"
+
+      - name: Wait for site
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://devops-ar.rdtech.lat' }}
+        run: |
+          # Ojo: los contenedores anteriores tambien pueden responder "pong";
+          # confirmar el tag desplegado en Portainer.
+          sleep 60
+          for _ in $(seq 1 30); do
+            if curl -fsS "${SITE_URL}/api/method/ping" | grep -q pong; then
+              echo "Sitio arriba: ${SITE_URL}"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::${SITE_URL}/api/method/ping no respondio"
+          exit 1
