@@ -10,9 +10,10 @@ class Vehiculo(Document):
         self._validar_flujo()
 
     def before_save(self):
+        # auto-estado primero para que el titulo refleje el estado final
+        self._auto_estado_subasta()
         self._set_titulo()
         self._calcular_costos()
-        self._auto_estado_subasta()
 
     def _validar_flujo(self):
         # Bloquea: no se puede marcar Vendido sin cliente y precio de venta.
