@@ -9,7 +9,7 @@ Retira los 5 roles del modelo disperso.
 """
 import frappe
 
-APP_DOCTYPES = ["Vehiculo", "Proveedor", "Cliente", "Almacen", "Repuesto"]
+APP_DOCTYPES = ["Vehiculo", "Proveedor", "Cliente", "Almacen"]
 OLD_ROLES = ["Compras", "Logistica", "Taller", "Control de Calidad", "Ventas"]
 
 SM = {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1,

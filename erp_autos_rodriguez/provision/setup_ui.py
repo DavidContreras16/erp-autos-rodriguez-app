@@ -128,8 +128,7 @@ def home():
                             "color": "Blue"})
     for label, link_to, icon in (("Proveedores", "Proveedor", "briefcase"),
                                  ("Clientes", "Cliente", "users"),
-                                 ("Almacenes", "Almacen", "box"),
-                                 ("Repuestos", "Repuesto", "wrench")):
+                                 ("Almacenes", "Almacen", "box")):
         ws.append("shortcuts", {"type": "DocType", "link_to": link_to, "label": label,
                                 "icon": icon, "doc_view": ""})
 

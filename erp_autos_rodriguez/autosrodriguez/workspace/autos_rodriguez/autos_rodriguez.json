@@ -23,7 +23,7 @@
  "label": "Autos Rodriguez",
  "link_type": "DocType",
  "links": [],
- "modified": "2026-09-08 18:41:56.979601",
+ "modified": "2026-09-17 12:56:19.650169",
  "modified_by": "Administrator",
  "module": "AutosRodriguez",
  "name": "Autos Rodriguez",
@@ -83,13 +83,6 @@
    "icon": "box",
    "label": "Almacenes",
    "link_to": "Almacen",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "",
-   "icon": "wrench",
-   "label": "Repuestos",
-   "link_to": "Repuesto",
    "type": "DocType"
   }
  ],

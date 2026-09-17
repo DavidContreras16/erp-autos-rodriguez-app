@@ -85,29 +85,13 @@
     "show_arrow": 0,
     "type": "Link",
     "url": null
-   },
-   {
-    "child": 0,
-    "collapsible": 1,
-    "filters": null,
-    "icon": "wrench",
-    "indent": 0,
-    "keep_closed": 0,
-    "label": "Repuestos",
-    "link_to": "Repuesto",
-    "link_type": "DocType",
-    "navigate_to_tab": null,
-    "route_options": null,
-    "show_arrow": 0,
-    "type": "Link",
-    "url": null
    }
   ],
-  "modified": "2026-09-08 16:14:39.609369",
+  "modified": "2026-09-17 12:56:00.474493",
   "module": "AutosRodriguez",
   "module_onboarding": null,
   "name": "AutosRodriguez",
   "standard": 1,
-  "title": "AutosRodriguez"
+  "title": "Autos Rodriguez"
  }
 ]

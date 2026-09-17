@@ -2,9 +2,10 @@
 
 Ejecutar: bench --site development.localhost execute erp_autos_rodriguez.provision.seed_demo.seed
 
-Siembra catalogos (Proveedor, Almacen, Repuesto, Cliente) y una flota de
-vehiculos con sus apartados llenos segun el estado (Compra / Aduana / Taller /
-Venta). Idempotente: upsert por VIN y por clave de catalogo.
+Siembra catalogos (Proveedor, Almacen, Cliente) y una flota de vehiculos con sus
+apartados llenos segun el estado (Compra / Aduana / Taller / Venta). Los repuestos
+se registran como texto libre en la tabla del apartado Taller (sin catalogo).
+Idempotente: upsert por VIN y por clave de catalogo.
 """
 import frappe
 
@@ -19,12 +20,6 @@ PROVEEDORES = [
 ALMACENES = [
     ("Subasta USA", "Origen"), ("En Transito", "Transito"), ("Puerto", "Transito"),
     ("Bodega SPS", "Bodega"), ("Taller", "Taller"), ("Sala de Venta", "Exhibicion"),
-]
-REPUESTOS = [
-    ("REP-001", "Pastillas de freno", "Mecanica", "Juego", 45),
-    ("REP-002", "Bateria 12V", "Electrica", "Unidad", 120),
-    ("REP-003", "Parabrisas", "Carroceria", "Unidad", 180),
-    ("REP-004", "Filtro de aceite", "Mecanica", "Unidad", 12),
 ]
 CLIENTES = [
     ("Juan Perez", "DNI", "0801199012345", "9988-7766", "Tegucigalpa", "Francisco Morazan"),
@@ -79,8 +74,8 @@ VEHICULOS = [
      "monto_flete": 520, "monto_aduana": 1280,
      "fecha_ingreso_taller": "2026-02-01", "tipo_reparacion": "Mecanica", "estado_taller": "En proceso",
      "descripcion_problema": "Cambio de frenos y bateria",
-     "repuestos": [{"repuesto": "REP-001", "cantidad": 1, "costo": 45},
-                   {"repuesto": "REP-002", "cantidad": 1, "costo": 120}],
+     "repuestos": [{"repuesto": "Pastillas de freno", "cantidad": 1, "costo": 45},
+                   {"repuesto": "Bateria 12V", "cantidad": 1, "costo": 120}],
      "pagos": [{"fecha_pago": "2025-12-21", "monto": 5200, "metodo_pago": "Transferencia", "referencia": "SWIFT-88234"}]},
 
     {"vin": "3VWD17AJ8KM654321", "marca": "Volkswagen", "modelo": "Jetta", "anio": 2019,
@@ -158,7 +153,7 @@ VEHICULOS = [
      "monto_flete": 490, "monto_aduana": 1180,
      "fecha_ingreso_taller": "2026-01-25", "tipo_reparacion": "Electrica", "estado_taller": "Esperando repuestos",
      "descripcion_problema": "Bateria hibrida y sistema electrico",
-     "repuestos": [{"repuesto": "REP-002", "cantidad": 1, "costo": 120}],
+     "repuestos": [{"repuesto": "Bateria 12V", "cantidad": 1, "costo": 120}],
      "pagos": [{"fecha_pago": "2025-12-02", "monto": 5600, "metodo_pago": "Transferencia", "referencia": "SWIFT-88239"}]},
 
     {"vin": "5N1AT2MV2JC098765", "marca": "Nissan", "modelo": "Rogue", "anio": 2018,
@@ -169,8 +164,8 @@ VEHICULOS = [
      "monto_flete": 610, "monto_aduana": 1450,
      "fecha_ingreso_taller": "2026-02-08", "tipo_reparacion": "Mecanica", "estado_taller": "En proceso",
      "descripcion_problema": "Cambio de frenos y filtro de aceite",
-     "repuestos": [{"repuesto": "REP-001", "cantidad": 1, "costo": 45},
-                   {"repuesto": "REP-004", "cantidad": 2, "costo": 12}],
+     "repuestos": [{"repuesto": "Pastillas de freno", "cantidad": 1, "costo": 45},
+                   {"repuesto": "Filtro de aceite", "cantidad": 2, "costo": 12}],
      "pagos": [{"fecha_pago": "2025-12-19", "monto": 8600, "metodo_pago": "Transferencia", "referencia": "SWIFT-88240"}]},
 ]
 
@@ -182,20 +177,11 @@ def _ensure_catalogo():
     for nombre, tipo in ALMACENES:
         if not frappe.db.exists("Almacen", nombre):
             frappe.get_doc({"doctype": "Almacen", "name": nombre, "nombre": nombre, "tipo": tipo}).insert(ignore_permissions=True)
-    for codigo, nombre, cat, um, costo in REPUESTOS:
-        if not frappe.db.exists("Repuesto", {"codigo": codigo}):
-            frappe.get_doc({"doctype": "Repuesto", "codigo": codigo, "nombre": nombre, "categoria": cat,
-                            "unidad_medida": um, "costo_referencia": costo}).insert(ignore_permissions=True)
     for nombre, tid, num, tel, dir_, dep in CLIENTES:
         if not frappe.db.exists("Cliente", {"nombre_completo": nombre}):
             frappe.get_doc({"doctype": "Cliente", "name": nombre, "nombre_completo": nombre, "tipo_identificacion": tid,
                             "numero_identificacion": num, "telefono": tel, "direccion": dir_,
                             "departamento": dep}).insert(ignore_permissions=True)
-
-
-def _repuesto_name(codigo):
-    n = frappe.db.get_value("Repuesto", {"codigo": codigo}, "name")
-    return n or codigo
 
 
 def _apply(doc, data):
@@ -204,8 +190,6 @@ def _apply(doc, data):
         if k in tables:
             doc.set(k, [])
             for row in v:
-                if k == "repuestos":
-                    row = dict(row); row["repuesto"] = _repuesto_name(row["repuesto"])
                 doc.append(k, row)
         else:
             doc.set(k, v)
@@ -235,7 +219,7 @@ def seed():
     total = frappe.db.count("Vehiculo")
     print("SEED: vehiculos nuevos=", created, "| total=", total)
     print("SEED_COUNTS:", {dt: frappe.db.count(dt) for dt in
-                           ["Proveedor", "Almacen", "Repuesto", "Cliente", "Vehiculo"]})
+                           ["Proveedor", "Almacen", "Cliente", "Vehiculo"]})
     print("SEED_DONE")
 
 

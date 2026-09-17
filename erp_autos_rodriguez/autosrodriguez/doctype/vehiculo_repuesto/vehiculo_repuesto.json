@@ -15,10 +15,9 @@
   {
    "columns": 4,
    "fieldname": "repuesto",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Repuesto",
-   "options": "Repuesto"
+   "label": "Repuesto"
   },
   {
    "columns": 2,

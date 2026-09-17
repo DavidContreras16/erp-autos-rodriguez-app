@@ -11,14 +11,12 @@ SIDEBAR_ITEMS = [
     ("Proveedores", "Proveedor", "DocType", "briefcase"),
     ("Clientes", "Cliente", "DocType", "users"),
     ("Almacenes", "Almacen", "DocType", "box"),
-    ("Repuestos", "Repuesto", "DocType", "wrench"),
 ]
 SHORTCUTS = [
     ("Vehiculos", "Vehiculo", "truck"),
     ("Proveedores", "Proveedor", "briefcase"),
     ("Clientes", "Cliente", "users"),
     ("Almacenes", "Almacen", "box"),
-    ("Repuestos", "Repuesto", "wrench"),
 ]
 
 items = []
