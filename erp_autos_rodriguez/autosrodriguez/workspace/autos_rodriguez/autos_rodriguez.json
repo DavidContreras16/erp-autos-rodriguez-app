@@ -29,15 +29,15 @@
  "name": "Autos Rodriguez",
  "number_cards": [
   {
-   "label": "Vehiculos en Inventario",
+   "label": "Vehículos en Inventario",
    "number_card_name": "Vehiculos en Inventario"
   },
   {
-   "label": "Vehiculos Vendidos",
+   "label": "Vehículos Vendidos",
    "number_card_name": "Vehiculos Vendidos"
   },
   {
-   "label": "Inversion en Inventario",
+   "label": "Inversión en Inventario",
    "number_card_name": "Inversion en Inventario"
   },
   {
