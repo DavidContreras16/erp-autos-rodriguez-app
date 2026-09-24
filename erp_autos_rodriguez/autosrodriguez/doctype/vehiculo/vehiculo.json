@@ -106,7 +106,7 @@
   {
    "fieldname": "anio",
    "fieldtype": "Int",
-   "label": "Anio"
+   "label": "Año"
   },
   {
    "fieldname": "casa_subasta",
