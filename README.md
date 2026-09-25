@@ -1,5 +1,7 @@
 # ERP Autos Rodríguez
 
+**Español** | [English](README.en.md)
+
 Aplicación web para Autos Rodríguez, un negocio hondureño que compra vehículos usados en subastas de Estados Unidos, los importa y los vende. Lleva el ciclo completo de cada carro en un solo registro: la subasta, el traslado, la aduana, el taller y la venta.
 
 Está construida sobre [Frappe](https://frappeframework.com) v16 como una app independiente. No depende de ERPNext.
